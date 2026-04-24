@@ -1,0 +1,594 @@
+
+/* ============================================================
+   ▶ CSS VARIABLES — 여기서 모든 색상/폰트/사이즈 수동 변경 가능
+   ============================================================ */
+:root {
+  /* ── 메인 컬러 */
+  --c-primary:      #3a9b27;   
+  --c-primary-dark:   #01aa9c;    
+  --c-primary-deep: #095e41;  
+  --c-primary-bg:   #beebc2;    
+  --c-primary-bg2:  #f0ffeb;    
+
+  /* ── 다크 계열 */
+  --c-dark:  #0d2107;
+  --c-dark2: #05381c;
+  --c-dark3: #003d24;
+
+  /* ── 텍스트 */
+  --c-text:       #1A1A1A;
+  --c-text-muted: #888;
+  --c-white:      #FFFFFF;
+
+  /* ── 시스템 */
+  --c-border:  #E8DEBB;
+  --c-purple:     #5f40e8;
+  --c-blue:  #0066ff;
+
+  /* ── 폰트 */
+  --font: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+
+  /* ── 레이아웃 */
+  --nav-h:   72px;
+  --radius:  12px;
+  --radius2: 20px;
+  --shadow:  0 4px 24px rgba(0,0,0,.10);
+  --shadow2: 0 8px 48px rgba(0,0,0,.16);
+  --trans:   .3s ease;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--c-text);background:#fff;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+
+/* ============================================================
+   SCROLL REVEAL — .reveal, .reveal-l, .reveal-r, .reveal-s
+   ============================================================ */
+.reveal,
+.reveal-l,
+.reveal-r,
+.reveal-s { opacity:0; transition: opacity .75s ease, transform .75s ease }
+.reveal   { transform:translateY(48px) }
+.reveal-l { transform:translateX(-56px) }
+.reveal-r { transform:translateX(56px) }
+.reveal-s { transform:scale(.86) }
+.reveal.in, .reveal-l.in, .reveal-r.in, .reveal-s.in
+           { opacity:1; transform:none }
+
+/* stagger helpers */
+.d1{transition-delay:.10s!important}
+.d2{transition-delay:.20s!important}
+.d3{transition-delay:.30s!important}
+.d4{transition-delay:.40s!important}
+.d5{transition-delay:.50s!important}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.container{max-width:1200px;margin:0 auto;padding:0 40px}
+section{padding:86px 0}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+#hd {
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  height:var(--nav-h);
+  background:#fff;
+  border-bottom:2.5px solid var(--c-primary);
+  display:flex;align-items:center;
+  padding:0 40px;
+  justify-content:space-between;
+  box-shadow:0 2px 12px rgba(0,0,0,.07);
+  transition:background var(--trans),box-shadow var(--trans);
+}
+#hd.scrolled{background:rgba(255,255,255,.97);backdrop-filter:blur(10px)}
+
+/* logo */
+.logo{display:flex;align-items:center;gap:10px;font-weight:900}
+.logo-icon{
+  width:40px;height:40px;border-radius:10px;
+  background:var(--c-primary);
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;font-weight:900;color:var(--c-white);
+}
+.logo-name{font-size:22px;color:var(--c-dark);line-height:1}
+.logo-sub{font-size:11px;font-weight:400;color:var(--c-text-muted);margin-top:2px}
+
+/* nav */
+nav{display:flex;align-items:center;gap:4px}
+nav a{
+  padding:8px 14px;font-size:14px;font-weight:500;color:var(--c-text);
+  border-radius:8px;transition:all var(--trans);
+}
+nav a:hover{background:var(--c-primary-bg);color:var(--c-primary-deep)}
+nav a.btn-cta{
+  background:var(--c-primary);color:var(--c-white);;
+  font-weight:700;padding:9px 18px;border-radius:9px;
+}
+nav a.btn-cta:hover{background:var(--c-primary-dark);color:var(--c-white);}
+
+/* ============================================================
+   HERO SLIDER
+   ============================================================ */
+.hero{
+  margin-top:var(--nav-h);
+  position:relative;height:600px;overflow:hidden;
+  background:var(--c-dark);
+}
+.slider{position:relative;width:100%;height:100%}
+
+.slide{
+  position:absolute;inset:0;opacity:0;
+  transition:opacity .9s ease;
+  display:flex;align-items:center;
+}
+.slide.on{opacity:1;z-index:2}
+
+.slide-bg{position:absolute;inset:0;overflow:hidden}
+.slide-bg img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform 8s ease;
+}
+.slide.on .slide-bg img{transform:scale(1.06)}
+
+.slide-ov{
+  position:absolute;inset:0;
+  background:linear-gradient(100deg,rgba(0,0,0,.72) 42%,rgba(0,0,0,.18) 100%);
+}
+
+.slide-body{
+  position:relative;z-index:3;
+  padding:0 90px;max-width:640px;
+}
+.slide-tag{
+  display:inline-block;
+  background:var(--c-primary);color:var(--c-dark);
+  font-size:13px;font-weight:700;
+  padding:5px 14px;border-radius:20px;margin-bottom:22px;
+}
+.slide-h1{
+  font-size:56px;font-weight:900;color:#fff;
+  line-height:1.18;margin-bottom:18px;
+}
+.slide-h1 em{color:var(--c-primary);font-style:normal}
+.slide-p{
+  font-size:17px;color:rgba(255,255,255,.85);
+  line-height:1.75;margin-bottom:32px;
+}
+.slide-p strong{color:var(--c-primary)}
+.slide-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--c-primary);color:var(--c-dark);
+  font-size:16px;font-weight:700;
+  padding:14px 28px;border-radius:11px;
+  transition:all var(--trans);
+}
+.slide-btn:hover{background:var(--c-primary-dark);color:#fff;transform:translateY(-3px)}
+
+.slide-img{
+  position:absolute;right:80px;bottom:0;height:540px;z-index:3;
+}
+.slide-img img{height:100%;object-fit:contain}
+
+/* slider controls */
+.sl-btn{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:10;
+  width:50px;height:50px;border-radius:50%;border:2px solid rgba(255,255,255,.4);
+  background:rgba(255,255,255,.12);backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:22px;cursor:pointer;
+  transition:all var(--trans);user-select:none;
+}
+.sl-btn:hover{background:var(--c-primary);border-color:var(--c-primary);color:var(--c-dark)}
+.sl-btn.prev{left:26px}
+.sl-btn.next{right:26px}
+
+.sl-dots{
+  position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
+  display:flex;gap:8px;z-index:10;
+}
+.sl-dot{
+  width:9px;height:9px;border-radius:50%;
+  background:rgba(255,255,255,.38);cursor:pointer;
+  transition:all var(--trans);
+}
+.sl-dot.on{background:var(--c-primary);width:26px;border-radius:5px}
+
+/* ============================================================
+   FEATURED — 즉시확인 매물
+   ============================================================ */
+.featured{
+  background:linear-gradient(135deg,var(--c-dark) 0%,var(--c-dark3) 100%);
+  padding:72px   0;
+  overflow:hidden;
+}
+.feat-wrap{display:flex;gap:0;align-items:flex-end;min-height:420px}
+
+/* left */
+.feat-left{
+  flex:0 0 300px;padding:0 0 72px 40px;
+  position:relative;display:flex;flex-direction:column;
+}
+.feat-left .feat-person{
+  position:absolute;bottom:-4px;left:-10px;
+  width:240px;pointer-events:none;
+}
+.feat-left .feat-person img{
+  width:100%;object-fit:contain;
+  /* src: consultant-woman-cutout.png — 상담사 여성 전신 컷아웃, 투명배경 PNG, 240×560px */
+}
+.feat-title{
+  font-size:30px;font-weight:900;color:#fff;
+  line-height:1.3;margin-bottom:10px;
+}
+.feat-title em{color:var(--c-primary);font-style:normal;display:block}
+.feat-note{font-size:13px;color:rgba(255,255,255,.55);margin-bottom:22px}
+.feat-more{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--c-primary);color:var(--c-dark);
+  font-size:14px;font-weight:700;
+  padding:10px 18px;border-radius:9px;width:fit-content;
+  transition:all var(--trans);
+}
+.feat-more:hover{background:var(--c-primary-dark);color:#fff}
+
+/* cards */
+.feat-cards{
+  flex:1;display:flex;gap:16px;
+  padding:0 40px 0 20px;align-items:flex-end;
+}
+.pcard{
+  flex:1;background:#fff;border-radius:var(--radius2);
+  overflow:hidden;box-shadow:var(--shadow2);
+  transition:transform var(--trans),box-shadow var(--trans);
+}
+.pcard:hover{transform:translateY(-8px);box-shadow:0 20px 60px rgba(0,0,0,.28)}
+
+.pcard-img{position:relative}
+.pcard-img img{
+  width:100%;height:180px;object-fit:cover;
+  /* src 규격: 350×180px, 아파트/빌라/오피스텔 외관 사진 */
+}
+.pcard-badges{
+  position:absolute;top:10px;left:10px;
+  display:flex;gap:6px;
+}
+.badge{
+  font-size:11px;font-weight:700;
+  padding:4px 9px;border-radius:5px;
+}
+.badge-y{background:var(--c-primary);color:var(--c-dark)}
+.badge-d{background:var(--c-dark);color:#fff}
+
+.pcard-body{padding:14px 16px 16px}
+.pcard-name{font-size:15px;font-weight:700;color:var(--c-dark);margin-bottom:5px}
+.pcard-meta{font-size:12px;color:var(--c-text-muted);margin-bottom:10px}
+.pcard-meta strong{color:var(--c-orange);font-weight:700}
+.pcard-price{font-size:19px;font-weight:900;color:var(--c-dark)}
+.pcard-price small{font-size:12px;font-weight:400;color:var(--c-text-muted)}
+
+.pcard-foot{
+  display:block;text-align:center;
+  background:var(--c-dark);color:#fff;
+  font-size:14px;font-weight:700;
+  padding:13px;
+  transition:background var(--trans);
+}
+.pcard-foot:hover{background:var(--c-primary-deep);color:#fff}
+
+/* ============================================================
+   APP FEATURE
+   ============================================================ */
+.app-sec{background:var(--c-primary-bg2)}
+.app-inner{display:flex;align-items:center;gap:64px}
+
+.app-phones{flex:0 0 430px;height:440px;position:relative}
+.app-phones .ph-back{
+  width:200px;position:absolute;left:0;top:40px;
+  border-radius:24px;
+  box-shadow:12px 12px 32px rgba(0,0,0,.14);
+  /* src: app-screen-listing.jpg — 방선생 앱 매물 목록 화면 스크린샷, 200×420px */
+}
+.app-phones .ph-front{
+  width:222px;position:absolute;left:148px;top:0;z-index:2;
+  border-radius:24px;
+  box-shadow:-8px 12px 32px rgba(0,0,0,.2);
+  /* src: app-screen-detail.jpg — 방선생 앱 매물 상세 화면 스크린샷, 222×444px */
+}
+
+.app-txt{flex:1}
+.app-sub{font-size:13px;font-weight:600;color:var(--c-text-muted);margin-bottom:8px}
+.app-stars{font-size:24px;color:var(--c-primary-dark);margin-bottom:14px;letter-spacing:2px}
+.app-h2{
+  font-size:36px;font-weight:900;color:var(--c-dark);
+  line-height:1.3;margin-bottom:18px;
+}
+.app-h2 em{color:var(--c-primary-deep);font-style:normal}
+.app-why{font-size:13px;font-weight:700;color:var(--c-text-muted);margin-bottom:6px}
+.app-desc{font-size:15px;color:var(--c-text);line-height:1.85}
+.app-desc strong{font-weight:700;color:var(--c-dark)}
+.app-foot{font-size:11px;color:var(--c-text-muted);margin-top:22px}
+
+/* ============================================================
+   VS COMPARISON
+   ============================================================ */
+.vs-sec{background:#fff}
+.vs-head{text-align:center;margin-bottom:56px}
+.vs-head p{font-size:20px;font-weight:400;color:var(--c-text);margin-bottom:6px}
+.vs-head h2{font-size:40px;font-weight:900;color:var(--c-dark)}
+.vs-head h2 em{color:var(--c-primary-deep);font-style:normal}
+
+.vs-row{display:flex;align-items:stretch;gap:0;max-width:880px;margin:0 auto}
+.vs-col{flex:1;border-radius:var(--radius2);overflow:hidden;box-shadow:var(--shadow)}
+.vs-col.a{margin-right:16px}
+.vs-col.b{background:var(--c-dark) ; margin-left:16px;}
+
+.vs-top{padding:14px 20px;text-align:center;font-size:14px;font-weight:700}
+.vs-col.a .vs-top{background:#e0e0e0;color:#999}
+.vs-col.b .vs-top{background:var(--c-primary);color:var(--c-dark)}
+
+.vs-mid{padding:18px 20px;text-align:center;font-size:20px;font-weight:900;border-bottom:1px solid rgba(0,0,0,.08)}
+.vs-col.a .vs-mid{background:#f5f5f5;color:var(--c-text)}
+.vs-col.b .vs-mid{background:rgba(255,255,255,.06);color:#fff;border-color:rgba(255,255,255,.1)}
+
+.vs-list{padding:24px 28px}
+.vs-col.a .vs-list{background:#f5f5f5}
+.vs-col.b .vs-list{background:rgba(255,255,255,.04)}
+.vs-list li{font-size:14px;margin-bottom:9px;line-height:1.5}
+.vs-col.a .vs-list li{color:#999}
+.vs-col.b .vs-list li{color:rgba(255,255,255,.8)}
+.vs-col.b .vs-list li::before{content:'+ ';color:var(--c-primary);font-weight:700}
+
+.vs-bot{padding:20px;text-align:center;font-size:28px;font-weight:900}
+.vs-bot small{font-size:13px;font-weight:400;display:block;margin-bottom:5px}
+.vs-col.a .vs-bot{background:#e0e0e0;color:#aaa}
+.vs-col.b .vs-bot{background:var(--c-primary);color:var(--c-dark)}
+
+.vs-mid-badge{
+  flex:0 0 80px;
+  display:flex;align-items:center;justify-content:center;
+}
+.vs-badge{
+  width:80px;height:80px;border-radius:50%;
+  background:linear-gradient(135deg,var(--c-dark) 0%,var(--c-primary-deep) 100%);
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;font-weight:900;color:var(--c-white);
+  box-shadow:0 6px 24px rgba(0,0,0,.3);
+}
+
+/* ============================================================
+   STATS / DONUT CHART
+   ============================================================ */
+.stats-sec{background:var(--c-primary-bg)}
+.stats-h2{
+  font-size:38px;font-weight:900;color:var(--c-dark);
+  text-align:center;line-height:1.35;margin-bottom:56px;
+}
+.stats-h2 em{color:var(--c-primary-deep);font-style:normal}
+
+.stats-inner{position:relative}
+.stat-person{
+  position:absolute;bottom:-86px;width:200px;
+  pointer-events:none;
+}
+.stat-person.l{left:0}
+.stat-person.r{right:0}
+.stat-person img{
+  width:100%;object-fit:contain;
+  /* src: consultant-left.png / consultant-right.png — 전신 컷아웃 투명배경 200×520px */
+}
+
+.chart-area{
+  display:flex;align-items:center;gap:60px;
+  max-width:860px;margin:0 auto;
+}
+.donut-wrap{flex:0 0 280px}
+.donut-svg-wrap{position:relative;width:280px;height:280px}
+.donut-svg{width:100%;height:100%;transform:rotate(-90deg)}
+circle.track{fill:none;stroke:#f1fff6;stroke-width:20}
+circle.seg{fill:none;stroke-width:20;stroke-dasharray:0 251.2;stroke-linecap:butt;transition:stroke-dasharray 1.4s ease}
+
+.donut-center{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+.donut-pct{font-size:34px;font-weight:900;color:var(--c-primary-deep)}
+.donut-lbl{font-size:12px;color:var(--c-text-muted)}
+.donut-note{font-size:11px;color:var(--c-text-muted);text-align:center;margin-top:10px}
+
+.legend{flex:1}
+.leg-item{margin-bottom:18px}
+.leg-txt{font-size:14px;color:var(--c-text);margin-bottom:7px}
+.leg-txt strong{font-weight:700;color:var(--c-dark)}
+.leg-bar-bg{background:#f1fff6;border-radius:5px;height:28px;overflow:hidden}
+.leg-bar{
+  height:100%;border-radius:5px;
+  display:flex;align-items:center;justify-content:flex-end;padding-right:10px;
+  font-size:13px;font-weight:700;color:#fff;
+  width:0;transition:width 1.5s ease;
+}
+.lb1{background:var(--c-primary-deep)}
+.lb2{background:var(--c-primary-dark)}
+.lb3{background:#0ac853}
+.lb4{background:#bbb;color:var(--c-text-muted)}
+
+/* ============================================================
+   REVIEWS
+   ============================================================ */
+.rev-sec{background:#fff}
+.rev-h2{text-align:center;font-size:38px;font-weight:900;color:var(--c-dark);margin-bottom:8px}
+.rev-sub{text-align:center;font-size:15px;color:var(--c-text-muted);margin-bottom:48px}
+
+.rev-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.rev-card{
+  border-radius:var(--radius);overflow:hidden;
+  box-shadow:var(--shadow);
+  transition:transform var(--trans);
+}
+.rev-card:hover{transform:translateY(-5px)}
+.rev-card img{
+  width:100%;height:184px;object-fit:cover;
+  /* src: review-photo-N.jpg — 계약 완료 후 촬영한 매물 또는 입주 사진, 360×184px */
+}
+.rev-body{padding:14px 16px 18px}
+.rev-name{font-size:14px;font-weight:700;color:var(--c-dark);margin-bottom:4px}
+.rev-who{
+  font-size:12px;color:var(--c-text-muted);
+  display:flex;align-items:center;gap:6px;margin-bottom:9px;
+}
+.rev-who::before{
+  content:'';width:20px;height:20px;border-radius:50%;
+  background:#eee;flex-shrink:0;
+}
+.rev-txt{
+  font-size:12px;color:var(--c-text-muted);line-height:1.65;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+}
+
+/* ============================================================
+   PARTNERS
+   ============================================================ */
+.part-sec{background:var(--c-primary-bg)}
+
+/* two-car bg decorative ends */
+.part-inner{position:relative;overflow:hidden}
+.part-car{
+  position:absolute;bottom:0;width:260px;
+  pointer-events:none;
+}
+.part-car.l{left:-20px}
+.part-car.r{right:-20px;transform:scaleX(-1)}
+.part-car img{
+  width:100%;object-fit:contain;
+  /* src: building-gv80-l.png / building-gv80-r.png — 건물 또는 SUV 컷아웃, 260×160px */
+}
+
+.part-head{text-align:center;margin-bottom:40px}
+.part-head p{font-size:18px;color:var(--c-text);margin-bottom:6px}
+.part-head h2{font-size:34px;font-weight:900;color:var(--c-dark)}
+.part-head h2 em{color:var(--c-primary-deep);font-style:normal}
+
+.part-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:12px;max-width:860px;margin:0 auto;
+}
+.part-cell{
+  background:#fff;border:1px solid var(--c-border);
+  border-radius:var(--radius);
+  padding:18px 12px;height:72px;
+  display:flex;align-items:center;justify-content:center;
+  transition:all var(--trans);cursor:default;
+}
+.part-cell:hover{
+  border-color:var(--c-primary);
+  box-shadow:0 4px 18px rgba(212,148,10,.18);
+  transform:translateY(-3px);
+}
+.part-cell img{
+  max-height:36px;max-width:100%;object-fit:contain;
+  /* src: partner-logoN.png — 파트너사 로고, 최대 140×36px, 투명 배경 */
+}
+.part-cell span{font-size:13px;font-weight:700;color:var(--c-text-muted)}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{
+  background:var(--c-dark);
+  padding:44px 0;
+  text-align:center;font-size:13px;
+  color:rgba(255,255,255,.55);line-height:2.1;
+}
+.foot-logo{font-size:22px;font-weight:900;color:var(--c-primary);margin-bottom:14px}
+footer strong{color:rgba(255,255,255,.85)}
+
+/* ============================================================
+   FLOATING BTNS
+   ============================================================ */
+.float-wrap{
+  position:fixed;right:22px;bottom:90px;z-index:800;
+  display:flex;flex-direction:column;gap:10px;
+  transform:translateX(110px);opacity:0;
+  transition:all .5s ease;
+}
+.float-wrap.show{transform:translateX(0);opacity:1}
+
+.f-phone,
+.f-inq{
+  width:72px;height:72px;border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  cursor:pointer;font-size:11px;font-weight:700;line-height:1.3;text-align:center;
+  box-shadow:0 4px 20px rgba(0,0,0,.28);
+  transition:transform var(--trans);
+}
+.f-phone:hover,.f-inq:hover{transform:scale(1.09)}
+.f-phone{background:var(--c-primary-deep);color:#fff}
+.f-phone i{font-size:22px;margin-bottom:2px}
+.f-inq{background:var(--c-dark);color:var(--c-primary);border: 1px solid var(--c-primary-bg)}
+.f-inq i{font-size:22px;margin-bottom:2px}
+
+#btnTop{
+  position:fixed;right:22px;bottom:28px;z-index:800;
+  width:46px;height:46px;border-radius:50%;border:none;
+  background:var(--c-primary);cursor:pointer;font-size:20px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--shadow);
+  opacity:0;transform:translateY(20px);
+  transition:all var(--trans);
+}
+#btnTop.show{opacity:1;transform:translateY(0)}
+#btnTop:hover{background:var(--c-primary-dark)}
+
+/* ============================================================
+   INQUIRY SECTION  (폼 영역)
+   ============================================================ */
+.inq-sec{
+  background:linear-gradient(135deg,var(--c-dark) 0%,var(--c-dark3) 100%);
+}
+.inq-inner{
+  display:flex;gap:60px;align-items:flex-start;
+  max-width:900px;margin:0 auto;
+}
+.inq-copy{flex:1;padding-top:8px}
+.inq-tag{
+  display:inline-block;background:var(--c-primary);color:var(--c-dark);
+  font-size:13px;font-weight:700;padding:5px 14px;border-radius:20px;margin-bottom:20px;
+}
+.inq-h2{font-size:38px;font-weight:900;color:#fff;line-height:1.3;margin-bottom:16px}
+.inq-h2 em{color:var(--c-primary);font-style:normal}
+.inq-p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.8}
+.inq-p strong{color:var(--c-primary)}
+
+.inq-form{
+  flex:0 0 380px;background:#fff;border-radius:var(--radius2);
+  padding:32px 28px;box-shadow:var(--shadow2);
+}
+.inq-form h3{font-size:18px;font-weight:900;color:var(--c-dark);margin-bottom:22px}
+.inq-form label{font-size:13px;font-weight:600;color:var(--c-text);display:block;margin-bottom:6px}
+.inq-form input,
+.inq-form select,
+.inq-form textarea{
+  width:100%;padding:10px 14px;font-size:14px;font-family:var(--font);
+  border:1.5px solid var(--c-border);border-radius:8px;
+  color:var(--c-text);margin-bottom:16px;
+  transition:border-color var(--trans);outline:none;
+}
+.inq-form input:focus,
+.inq-form select:focus,
+.inq-form textarea:focus{border-color:var(--c-primary-dark)}
+.inq-form textarea{resize:none;height:80px}
+.inq-submit{
+  width:100%;padding:13px;
+  background:var(--c-primary);color:var(--c-dark);
+  font-size:16px;font-weight:700;font-family:var(--font);
+  border:none;border-radius:10px;cursor:pointer;
+  transition:all var(--trans);
+}
+.inq-submit:hover{background:var(--c-primary-dark);color:#fff}
